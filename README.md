@@ -4,7 +4,9 @@ Este repositorio recoge una serie de experimentos de simulación numérica basad
 
 El proyecto está organizado en dos carpetas independientes: `Clásico` y `Quantum`.
 
----
+## 📁 DOCUMENTACIÓN
+
+> **DRIVE:** https://drive.google.com/drive/folders/1Q8v1ASzbohA9egSW3UAmZ7IL4IQsW5PV?usp=sharing
 
 ## 📁 Estructura del Repositorio
 
@@ -15,8 +17,6 @@ El proyecto está organizado en dos carpetas independientes: `Clásico` y `Quant
 ├── requirements.txt      # Dependencias del proyecto
 └── README.md
 ```
-
----
 
 ## 📂 Clásico/
 
@@ -34,8 +34,6 @@ Contiene los experimentos iniciales para comprender y validar la formulación SP
 - **`EDO_continuo.py`** — Implementación de la ecuación diferencial ordinaria (EDO) continua asociada, usada como referencia analítica.
 
 > **Nota:** Todos los experimentos clásicos utilizan un kernel triangular con soporte compacto y una formulación "zeroth-order consistent" inspirada en Au-Yeung.
-
----
 
 ## 📂 Quantum/
 
@@ -55,8 +53,6 @@ Contiene la implementación cuántica de la dinámica SPH mediante **CTQW (Conti
 
 - **`match_decomposition.py`** — Implementación del algoritmo de **Matching Decomposition** para descomponer el hamiltoniano en capas de puertas cuánticas aplicables. Permite simular $e^{-i H t}$ mediante Trotterización usando emparejamientos (matchings) de la matriz de adyacencia del grafo de interacción.
 
----
-
 ## ⚙️ Requisitos
 
 Las dependencias están listadas en `requirements.txt`:
@@ -69,8 +65,6 @@ pip install -r requirements.txt
 - `numpy`, `matplotlib`, `scipy` — computación numérica y visualización.
 - `qiskit >= 1.2.0`, `qiskit-aer >= 0.15.0` — framework cuántico y simulador.
 - `jupyterlab`, `pylatexenc` — entornos de desarrollo y renderizado de circuitos.
-
----
 
 ## 🚀 Uso Rápido
 
@@ -98,8 +92,6 @@ python Quantum/Q_SPH_P4.py
 2. **Efecto Zenón:** En los casos cuánticos se aplica una compensación no lineal $J_{\text{eff}} = \arcsin(\sqrt{J_{\text{cl}} \cdot dt}) / dt$ para que la probabilidad de transición por paso de Trotter coincida con la tasa clásica.
 
 3. **Dinámica abierta:** La decoherencia se introduce mediante un qubit ancilla que se entrelaza con el sistema, se mide, y se reinicia (feedforward clásico) en cada paso temporal, forzando la evolución markoviana.
-
----
 
 ## 🎯 Estado Actual
 
