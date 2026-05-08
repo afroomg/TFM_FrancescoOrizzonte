@@ -20,7 +20,7 @@ T_final  = 30.0
 n_steps  = 100          # Número de pasos de tiempo (dt)
 dt       = T_final / n_steps
 
-shots    = 1000
+shots    = 2000
 backend  = AerSimulator()
 
 # 2. COMPENSACIÓN DEL EFECTO ZENÓN
@@ -29,8 +29,6 @@ if arg > 1.0:
     raise ValueError(f"J_classical*dt={arg:.4f} > 1.0. Aumenta n_steps.")
 
 J_eff = np.arcsin(np.sqrt(arg)) / dt
-
-print(2*J_eff*dt)
 
 H_eff = np.array([[0.0, J_eff],
                   [J_eff, 0.0]], dtype=float)
@@ -125,19 +123,12 @@ results_u0 = np.array(results_u0)
 results_u1 = np.array(results_u1)
 delta_u    = results_u0 - results_u1
 
-# Referencia analítica de la EDO clásica
-t_ref  = np.linspace(0, T_final, 500)
-u0_ref = 0.5 * (1 + np.exp(-2 * J_classical * t_ref))
-u1_ref = 0.5 * (1 - np.exp(-2 * J_classical * t_ref))
-
 
 # 5. VISUALIZACIÓN
 
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
 
 # Panel 1: Amplitudes
-ax1.plot(t_ref, u0_ref, '--', color='#1f77b4', lw=2, alpha=0.6, label='$u_0$ clásico')
-ax1.plot(t_ref, u1_ref, '--', color='#ff7f0e', lw=2, alpha=0.6, label='$u_1$ clásico')
 ax1.plot(t_eval, results_u0, 'o-', color='#1f77b4', lw=2, ms=5, label='$u_0$ QSPH (shots)')
 ax1.plot(t_eval, results_u1, 'o-', color='#ff7f0e', lw=2, ms=5, label='$u_1$ QSPH (shots)')
 ax1.axhline(0.5, color='gray', linestyle=':', alpha=0.7)
@@ -150,8 +141,6 @@ ax1.grid(True, alpha=0.3)
 ax1.legend(fontsize=9)
 
 # Panel 2: Diferencia (Relaxation)
-delta_ref = np.exp(-2 * J_classical * t_ref)
-ax2.plot(t_ref, delta_ref, '--', color='gray', lw=2, alpha=0.6, label='$e^{-2J_{cl}t}$ (ref.)')
 ax2.plot(t_eval, delta_u, 'o-', color='purple', lw=2, ms=5, label='$\\Delta u$ QSPH')
 ax2.axhline(0.0, color='gray', linestyle=':', alpha=0.7)
 

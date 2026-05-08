@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 h = 1.2
 dx = 0.5
-c = 10**(-0.9)                 # velocidad de advección fija
+c = 10**(-0.5)                 # velocidad de advección fija
 T_final = 30           
 n_points = 500            # detalle fino en la línea
 

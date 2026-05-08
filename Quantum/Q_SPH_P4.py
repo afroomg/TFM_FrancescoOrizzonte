@@ -21,6 +21,7 @@ print(f"Parámetros físicos: h={h}, dx={dx}, c={c:.4f}, nu={nu:.4f}")
 
 N_particles = 4
 x_pos = np.array([i * dx for i in range(N_particles)])
+print(x_pos)
 
 # Condición inicial (Partícula 0 tiene todo el fluido, estado |00>)
 u_init = np.array([1.0, 0.0, 0.0, 0.0])
@@ -37,10 +38,8 @@ J_cl_matrix = np.zeros((N_particles, N_particles))
 for i in range(N_particles):
     for j in range(N_particles):
         if i != j:
-            # Peso estricto absoluto como solicitaste
-            peso = 0.5 * (abs(get_gradW(x_pos[i], x_pos[j])) + abs(get_gradW(x_pos[j], x_pos[i])))
-            # Multiplicamos por c y por la distancia para obtener la tasa de transferencia
-            J_cl_matrix[i, j] = c * abs(x_pos[i] - x_pos[j]) * peso
+            if abs(x_pos[i]-x_pos[j]) <= h:
+                J_cl_matrix[i, j] = c * nu * abs(x_pos[i]-x_pos[j])
 
 print("\nMatriz J Clásica (Tasa de transferencia):")
 print(np.round(J_cl_matrix, 4))
