@@ -10,7 +10,7 @@ from qiskit_aer import AerSimulator
 # 1. PARÁMETROS FÍSICOS SPH Y PARÁMETROS
 h  = 1.2
 dx = 0.5
-c  = 10**(-0.9)       # Velocidad fija (~0.3162)
+c  = 10**(-0.5)       # Velocidad fija (~0.3162)
 nu = 1.0 / (h**2)
 J_classical = c * dx * nu   # Tasa clásica de transferencia
 
@@ -20,7 +20,7 @@ T_final  = 30.0
 n_steps  = 100          # Número de pasos de tiempo (dt)
 dt       = T_final / n_steps
 
-shots    = 2000
+shots    = 4000
 backend  = AerSimulator()
 
 # 2. COMPENSACIÓN DEL EFECTO ZENÓN
@@ -30,8 +30,8 @@ if arg > 1.0:
 
 J_eff = np.arcsin(np.sqrt(arg)) / dt
 
-H_eff = np.array([[0.0, J_eff],
-                  [J_eff, 0.0]], dtype=float)
+H_eff = np.array([[0.0, J_classical],
+                  [J_classical, 0.0]], dtype=float)
 
 print(f"dt={dt:.4f}, J_eff={J_eff:.6f}")
 print(f"Verificación: sin²(J_eff·dt) = {np.sin(J_eff*dt)**2:.6f}  ←→  J_classical·dt = {arg:.6f}")
@@ -102,7 +102,7 @@ def build_and_run_markov(n_pasos: int, show_circuit: bool = False) -> tuple[floa
 
 # 4. BUCLE TEMPORAL Y RECOLECCIÓN DE DATOS
 
-n_puntos = 30
+n_puntos = 40
 indices  = np.linspace(0, n_steps, n_puntos, dtype=int)
 t_eval   = indices * dt
 

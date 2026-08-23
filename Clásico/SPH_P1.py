@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 h = 1.2
 dx = 0.5
-c = 10**(-0.5)                 # velocidad de advección fija
+c = 10**(-0.9)                 # velocidad de advección fija
 T_final = 30           
 n_points = 500            # detalle fino en la línea
 
@@ -18,7 +18,7 @@ dt_local = t_values[1] - t_values[0]
 
 # Gradiente del kernel triangular
 gradW01 = -1.0 / (h**2)
-gradW10 =  1.0 / (h**2)
+gradW10 =  -1.0 / (h**2)
 
 
 def sph_step_discreto(u0, u1, c, dt):
@@ -27,7 +27,7 @@ def sph_step_discreto(u0, u1, c, dt):
     u0_new = u0 - c * dt * suma_0
 
     # Partícula 1
-    suma_1 = (u0 - u1) * (-dx) * gradW10
+    suma_1 = (u0 - u1) * dx * gradW10
     u1_new = u1 - c * dt * suma_1
 
     return u0_new, u1_new
