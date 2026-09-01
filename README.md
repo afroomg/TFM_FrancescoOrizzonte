@@ -4,18 +4,16 @@ Este repositorio recoge una serie de experimentos de simulación numérica basad
 
 El proyecto está organizado en dos carpetas independientes: `Clásico` y `Quantum`.
 
-## 📁 DOCUMENTACIÓN
-
-> **DRIVE:** https://drive.google.com/drive/folders/1Q8v1ASzbohA9egSW3UAmZ7IL4IQsW5PV?usp=sharing
-
 ## 📁 Estructura del Repositorio
-
 ```
 .
 ├── Clásico/              # Simulaciones SPH clásicas
 ├── Quantum/              # Simulaciones SPH cuánticas (Qiskit)
+├── Memoria/              # Versión más reciente de la memoria
 ├── requirements.txt      # Dependencias del proyecto
 └── README.md
+```
+```
 ```
 
 ## 📂 Clásico/
