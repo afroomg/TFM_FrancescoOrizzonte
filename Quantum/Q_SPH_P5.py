@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib
-matplotlib.use('TkAgg')
+matplotlib.use('MacOSX')
 import matplotlib.pyplot as plt
 from match_decomposition import ctqw_matching_step
 from qiskit import QuantumCircuit, transpile
@@ -36,8 +36,8 @@ if arg > 1.0:
 
 J_eff = np.arcsin(np.sqrt(arg)) / dt
 
-H_eff = np.array([[0.0, J_classical],
-                  [J_classical, 0.0]], dtype=float)
+H_eff = np.array([[0.0, J_eff],
+                  [J_eff, 0.0]], dtype=float)
 
 print(f"dt={dt:.4f}, J_eff={J_eff:.6f}")
 print(f"Verificación: sin²(J_eff·dt) = {np.sin(J_eff*dt)**2:.6f}  ←→  J_classical·dt = {arg:.6f}")

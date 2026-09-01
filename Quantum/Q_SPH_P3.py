@@ -1,16 +1,20 @@
 import numpy as np
 import matplotlib
-matplotlib.use('TkAgg')
+matplotlib.use('MacOSX')
 import matplotlib.pyplot as plt
 from match_decomposition import ctqw_matching_step
 from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, transpile
 from qiskit_aer import AerSimulator
 
+# ── OPCIONES DE SALIDA holi, me vez? ────────────────────────────────────────────────────────
+GUARDAR_CIRCUITO = False   # True → guarda 'Q_SPH_P3_trotter_step.png'
+# ─────────────────────────────────────────────────────────────────────────────
+
 
 # 1. PARÁMETROS FÍSICOS SPH Y PARÁMETROS
 h  = 1.2
 dx = 0.5
-c  = 10**(-0.5)       # Velocidad fija (~0.3162)
+c  = 10**(-1)       # Velocidad fija (~0.3162)
 nu = 1.0 / (h**2)
 J_classical = c * dx * nu   # Tasa clásica de transferencia
 
@@ -30,8 +34,8 @@ if arg > 1.0:
 
 J_eff = np.arcsin(np.sqrt(arg)) / dt
 
-H_eff = np.array([[0.0, J_classical],
-                  [J_classical, 0.0]], dtype=float)
+H_eff = np.array([[0.0, J_eff],
+                  [J_eff, 0.0]], dtype=float)
 
 print(f"dt={dt:.4f}, J_eff={J_eff:.6f}")
 print(f"Verificación: sin²(J_eff·dt) = {np.sin(J_eff*dt)**2:.6f}  ←→  J_classical·dt = {arg:.6f}")
@@ -41,6 +45,27 @@ qc_evol = ctqw_matching_step(H_eff, dt, n_trotter_steps=1)
 
 print("\n Bloque de Matching")
 print(qc_evol.decompose().draw(output='text'))
+
+# --- VISUALIZACIÓN: 1 PASO DE TROTTER ---
+qr_v     = QuantumRegister(2, name='q')
+cr_a     = ClassicalRegister(1, name='ancilla')
+cr_s     = ClassicalRegister(1, name='sistema')
+qc_1step = QuantumCircuit(qr_v, cr_a, cr_s)
+
+qc_1step.compose(qc_evol, qubits=[qr_v[1]], inplace=True)  # CTQW
+qc_1step.cx(qr_v[1], qr_v[0])                              # Interacción entorno
+qc_1step.measure(qr_v[0], cr_a[0])                         # Medición ancilla
+with qc_1step.if_test((cr_a[0], 1)):
+    qc_1step.x(qr_v[0])                                    # Reset condicional
+qc_1step.barrier()
+qc_1step.measure(qr_v[1], cr_s[0])                         # Medición final sistema
+
+fig_circ = qc_1step.decompose(gates_to_decompose=['if_else']).draw(output='mpl', fold=-1, style='iqp', reverse_bits=True)
+if GUARDAR_CIRCUITO:
+    fig_circ.savefig('Q_SPH_P3_trotter_step.png', dpi=150, bbox_inches='tight')
+    print("Circuito guardado en 'Q_SPH_P3_trotter_step.png'")
+plt.show(block=True)
+# --- FIN VISUALIZACIÓN ---
 
 
 # 3. CONSTRUCCIÓN Y EJECUCIÓN (Qiskit 2.x API Moderna)
@@ -102,7 +127,7 @@ def build_and_run_markov(n_pasos: int, show_circuit: bool = False) -> tuple[floa
 
 # 4. BUCLE TEMPORAL Y RECOLECCIÓN DE DATOS
 
-n_puntos = 40
+n_puntos = 30
 indices  = np.linspace(0, n_steps, n_puntos, dtype=int)
 t_eval   = indices * dt
 
