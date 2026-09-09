@@ -1,0 +1,229 @@
+\documentclass[a4paper,12pt,openany,twoside,spanish]{book}
+
+% ─── DISEÑO DE PÁGINA ─────────────────────────────────────────────────────────
+\setlength{\hoffset}{0mm}
+\setlength{\voffset}{0mm}
+\setlength{\headsep}{4mm}
+\setlength{\oddsidemargin}{4.79mm}
+\setlength{\evensidemargin}{4.79mm}
+\setlength{\topmargin}{0mm}
+\setlength{\textwidth}{150mm}
+\setlength{\textheight}{219mm}
+\setlength{\parskip}{2ex}
+\setlength{\parindent}{0pt}
+
+% ─── CABECERAS Y PIES DE PÁGINA ───────────────────────────────────────────────
+\usepackage{fancyhdr}
+\setlength{\headheight}{24pt}
+\let\headwidth\textwidth
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\newcommand{\size}{\fontsize{10}{11}\selectfont}
+
+\fancyhead{}
+\fancyhead[RO]{\size\leftmark}
+\fancyhead[LE]{\size\rightmark}
+\fancyfoot{}
+\fancyfoot[LE,RO]{\size\thepage}
+\fancyfoot[C]{\size Marco Francesco Orizzonte Cabrera}
+\fancyfoot[LO,RE]{\size Junio/2026}
+
+% ─── IDIOMA ───────────────────────────────────────────────────────────────────
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% ─── MATEMÁTICAS Y SÍMBOLOS ───────────────────────────────────────────────────
+\usepackage{amsmath}
+\usepackage{amstext}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{latexsym}
+\usepackage{cancel}
+\usepackage{braket}
+\usepackage{physics}
+
+% ─── PAQUETES GENERALES ───────────────────────────────────────────────────────
+\usepackage{eurosym}
+\usepackage{setspace}
+\usepackage{pdfpages}
+\usepackage{pdflscape}
+\usepackage{lscape}
+\usepackage{rotating}
+\usepackage{scalefnt}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{lastpage}
+\usepackage{lettrine}
+
+% ─── FIGURAS Y CAPTIONS ───────────────────────────────────────────────────────
+\usepackage{graphicx}
+\usepackage{caption}
+\captionsetup{compatibility=false}
+\usepackage{subcaption}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+\makeatletter
+\long\def\@makecaption#1#2{%
+  \vskip\belowdisplayshortskip
+  \hfil\parbox{1\textwidth}{\centering\footnotesize{#1}. {#2}\\}\hfil%
+  \vskip\abovecaptionskip}
+\makeatother
+
+% ─── TABLAS Y COLOR ───────────────────────────────────────────────────────────
+\usepackage{colortbl}
+\usepackage{xcolor}
+\definecolor{gris-claro}{gray}{0.82}
+\definecolor{myblue}{RGB}{0, 50, 120}
+
+\addto\captionsspanish{%
+  \def\bibname{Referencias}%
+  \def\tablename{Tabla}%
+  \def\listtablename{\'Indice de Tablas}%
+  \def\technicalreportname{Informe t\'ecnico}%
+}
+
+% ─── NUMERACIÓN POR CAPÍTULO ──────────────────────────────────────────────────
+\usepackage{chappg}
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+% ─── CIRCUITOS CUÁNTICOS ──────────────────────────────────────────────────────
+\usepackage{tikz}
+\usepackage{quantikz}
+
+% ─── BIBLIOGRAFÍA ─────────────────────────────────────────────────────────────
+\usepackage{cite}
+\bibliographystyle{apalike}
+
+% ─── ÍNDICE ANALÍTICO ─────────────────────────────────────────────────────────
+\usepackage{makeidx}
+\newcommand{\ii}[1]{{\itshape #1}}
+\makeindex
+
+% ─── HIPERENLACES ─────────────────────────────────────────────────────────────
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{bookmark}
+\hypersetup{
+    colorlinks      = false,
+    linkbordercolor = {0.8 0 0},
+    citebordercolor = {0 0.55 0},
+    urlbordercolor  = {0 0.55 0},
+    pdftitle        = {Quantum SPH via CTQW},
+    pdfauthor       = {Marco Francesco Orizzonte Cabrera},
+    pdfsubject      = {Master en Computacion Cuantica - TFM},
+}
+
+% ─── HOJAS EN BLANCO SIN NUMERACIÓN ────────────────────────────────────────────
+% Redefinición global: cualquier página en blanco auto-insertada por
+% \cleardoublepage (capítulos, TOC, índice, bibliografía) usa estilo empty.
+\makeatletter
+\renewcommand*{\cleardoublepage}{%
+  \clearpage
+  \if@twoside
+    \ifodd\c@page
+    \else
+      \hbox{}\thispagestyle{empty}\newpage
+      \if@twocolumn
+        \hbox{}\newpage
+      \fi
+    \fi
+  \fi
+}
+% La clase es openany: forzamos \frontmatter/\mainmatter/\backmatter a usar
+% \clearpage (no \cleardoublepage) para tener control determinista sobre los
+% blancos mediante \hojablanca.
+\renewcommand\frontmatter{\clearpage\@mainmatterfalse\pagenumbering{roman}}
+\renewcommand\mainmatter{\clearpage\@mainmattertrue\pagenumbering{arabic}}
+\renewcommand\backmatter{\clearpage\@mainmatterfalse}
+\makeatother
+
+% Comando para insertar exactamente una hoja en blanco sin numeración visible.
+\newcommand{\hojablanca}{%
+  \clearpage
+  \thispagestyle{empty}%
+  \mbox{}%
+  \clearpage
+}
+
+\begin{document}
+
+% ─── PORTADA ──────────────────────────────────────────────────────────────────
+% La portada es un PDF externo: no se cuenta ni se numera.
+\pagestyle{empty}
+\includepdf[pages=-,fitpaper=true]{cover.pdf}
+
+% ─── PÁGINAS PRELIMINARES (sin numeración) ────────────────────────────────────
+\frontmatter
+\pagestyle{fancy}
+
+% 1) Hoja en blanco tras la portada.
+\hojablanca
+
+% 2) Dedicatoria (cursiva, centrada a la derecha, fuera del índice).
+\input{chapters/preliminares/dedicatoria}
+
+% 3) Hoja en blanco tras la dedicatoria.
+\hojablanca
+
+% 4) Resumen / Abstract / Agradecimientos (consecutivos, sin blancos entre ellos).
+\chapter*{Resumen}
+Este trabajo diseña, implementa y evalúa un algoritmo de Quantum Smoothed Particle Hydrodynamics (QSPH) basado en caminatas cuánticas en tiempo continuo (CTQW) para la ecuación de advección unidimensional, restringido a un sistema de dos partículas SPH con posiciones fijas. El hamiltoniano se construye a partir de los acoples del kernel triangular y se compila con Matching Decomposition; en este trabajo el matching es trivial y cada paso de Trotter se reduce a una rotación $R_x$. Se muestra que la evolución unitaria conserva la norma y produce oscilaciones incompatibles con la discretización SPH clásica, la cual, en este grafo mínimo, relaja hacia la media $u=1/2$. Para copiar esa relajación se abre el sistema mediante un modelo de colisión (qubit ancilla, puerta CX, medición intermedia y reinicio) y se corrige el efecto Zeno con un acoplamiento efectivo $J_{\mathrm{eff}}$. El observable comparado con la referencia clásica es la población $P_j=\rho_{jj}$, no una amplitud. El circuito reproduce cualitativamente para dos valores de la velocidad de advección. El algoritmo se considera válido únicamente para $N=2$; no se reclama ventaja cuántica frente a SPH industrial ni la reducción de puertas en grafos generales.
+
+% Abstract
+\chapter*{Abstract}
+This work, implements and evaluates a Quantum Smoothed Particle Hydrodynamics (QSPH) algorithm based on continuous-time quantum walks (CTQW) for the one-dimensional advection equation, restricted to two SPH particles with fixed positions. The Hamiltonian is built from the couplings of a triangular kernel and compiled with Matching Decomposition; for this scenario the matching is trivial and each Trotter step reduces to an $R_x$ rotation. Unitary evolution conserves the norm and yields oscillations that disagree with the classical SPH behavior, which on this minimal graph relaxes to the mean $u=1/2$. That relaxation is reproduced by opening the system with a collision model (ancilla qubit, CX gate, mid-circuit measurement and reset) and by correcting the quantum Zeno effect with an effective coupling $J_{\mathrm{eff}}$. The observable compared with the classical reference is the population $P_j=\rho_{jj}$, not an amplitude. The circuit matches qualitatively for two advection speeds. The algorithm is validated only for $N=2$; no quantum advantage over industrial SPH, and no CX-count reduction for general graphs, is claimed.
+
+% Agradecimientos
+\chapter*{Agradecimientos}
+Me gustaría citar unas palabras de un científico muy reconocido en este campo, ``I don’t have to know an answer. I don’t feel frightened by not knowing things, by being lost in the mysterious universe without having any purpose — which is the way it really is, as far as I can tell. Possibly. It doesn’t frighten me.'', Richard Feynman. 
+
+Este trabajo refleja una idea abstracta, de esas que vienen como una corriente de aire refrescante que peina el cabello, más lindo que tener ideas así es el hecho de perseguirlas, de ser capaz de atraparlas y no soltar hasta averiguar más. Para poder llevar a acabo un trabajo así hace falta tener la suerte de no tener más preocupaciones. De evadir el estrés del día a día y estar en una paz tal que nos sea posible disfrutar de esa brisa. Por estas razones doy gracias a mis padres, por darme una oportunidad de disfrutar de la brisa, a pesar de nunca tener una respuesta clara. 
+
+En este camino no voy solo, por tan lejos de nuestra tierra estemos, tengo siempre alguien a mi lado, mi amada Beatriz, la persona con la cual puedo discutir mis ideas y no sentirme incomprendido, la persona con la cual puedo disfrutar de aquellas ideas, la persona a la que ansió ver y contar todo lo nuevo y escuchar cosas maravillosas de otras áreas. La persona la cual siempre me pone los pies en la tierra y saca mi lado más humilde y solidario. 
+
+Y durante este camino, siempre tengo en mente a un ser que crece con una rapidez que hace que mi tiempo pase en un parpadeo. Mi hermana Gia, a la que amo con mi corazón. Durante este trabajo hemos vivido momentos inolvidables y risas incontables, gracias por ser el ser de luz, alegre y llena de amor que siempre me saca una sonrisa.
+
+Para iniciar la lectura de esta brisa maravillosa tengo que mencionar a mis compañeros de cuatro patas, que, tanto en cielo como en tierra, están allí siempre con algo nuevo para hacer, los cuales demuestran que no es necesario tener un abecedario para amar. 
+
+% 5) Hoja en blanco tras los agradecimientos.
+\hojablanca
+
+% 6) Estructura de la tesis + Repositorio de código (juntos, fuera del índice).
+\input{chapters/preliminares/estructura}
+
+% 7) Hoja en blanco tras estructura/repositorio.
+\hojablanca
+
+% 8) Índices.
+\tableofcontents
+\listoffigures
+
+% 9) Hoja en blanco antes de entrar al cuerpo principal.
+\hojablanca
+
+% ─── CUERPO PRINCIPAL ─────────────────────────────────────────────────────────
+\mainmatter
+\pagestyle{fancy}
+
+\input{chapters/cap1_introduccion/cap1}
+\input{chapters/cap2_objetivos/cap2}
+\input{chapters/cap3_macro/cap3}
+\input{chapters/cap4_metod/cap4}
+\input{chapters/cap5_circuito/cap5}
+\input{chapters/cap6_resultados/cap6}
+\input{chapters/cap7_conclusiones/cap7}
+
+% ─── BACKMATTER ───────────────────────────────────────────────────────────────
+\backmatter
+\pagenumbering{bychapter}
+
+% Índice analítico
+\printindex
+
+% Bibliografía
+\bibliography{referencias}
+
+\end{document}

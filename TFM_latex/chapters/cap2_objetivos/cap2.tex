@@ -1,0 +1,28 @@
+% chapters/cap2_objetivos/cap2.tex
+
+\chapter{Objetivos}
+\label{ch:objetivos}
+
+El desarrollo de este trabajo fin de máster se articula en torno a un objetivo general que define el propósito y alcance de la investigación, del cual se derivan una serie de objetivos específicos que trazan la hoja de ruta metodológica y técnica para su consecución.
+
+\section{Objetivo general}
+
+El objetivo principal de este trabajo es diseñar, implementar y evaluar un algoritmo cuántico basado en caminatas cuánticas en tiempo continuo (CTQW) para la resolución de la ecuación de advección unidimensional, para un sistema de dos partículas SPH con posiciones fijas. Se busca analizar cómo evoluciona en el tiempo una cantidad advectada a partir de unas condiciones iniciales dadas, evaluando la viabilidad y fidelidad física de este enfoque frente a la discretización SPH clásica \eqref{eq:sph_advection_discrete} en el mismo escenario de dos partículas.
+
+\section{Objetivos específicos}
+
+Para alcanzar el objetivo general propuesto, se plantean los siguientes objetivos específicos:
+
+\begin{enumerate}
+    \item \textbf{Estudio y adaptación del formalismo SPH:} Analizar en profundidad el método clásico de \emph{Smoothed Particle Hydrodynamics} (SPH) y desarrollar la formulación matemática necesaria para transicionar de este modelo clásico a un SPH cuántico, garantizando la generación de estados cuánticos válidos y representativos de las propiedades del fluido.
+    
+    \item \textbf{Formulación del algoritmo basado en CTQW:} Establecer el marco teórico y operativo para mapear la dinámica del fluido utilizando caminatas cuánticas en tiempo continuo, construyendo el hamiltoniano del sistema a partir de la matriz de adyacencia del grafo de interacción de partículas.
+    
+    \item \textbf{Compilación del hamiltoniano:} Aplicar \emph{Matching Decomposition} \cite{matching2026} para implementar $e^{-iHt}$ sin descomposición de Pauli. En $N=2$ el \emph{matching} es trivial y el bloque es una $R_x$; no se toma como objetivo demostrar la reducción de $CX$ o de profundidad reportada por esos autores en grafos generales.
+    
+    \item \textbf{Implementación computacional en Qiskit:} Programar y simular el circuito cuántico resultante utilizando Python y el framework Qiskit, integrando el método de \emph{Matching Decomposition} para la ejecución de la dinámica de la caminata cuántica en simuladores.
+    
+    \item \textbf{Codificación y lectura:} Preparar el estado mediante \emph{Amplitude Encoding} del escalar inicial y leer las poblaciones $P_j = \rho_{jj}$, identificadas con $u_j$ al comparar con \eqref{eq:sph_advection_discrete}. No se evalúa \emph{Quantum Amplitude Estimation} ni se reconstruye la amplitud compleja.
+    
+    \item \textbf{Sistema cerrado frente a abierto:} Contrastar el CTQW unitario (oscilaciones) con un mapa abierto realizado como modelo de colisión (ancilla, $CX$, medida y reinicio), más la corrección de Zeno, para reproducir la relajación de \eqref{eq:sph_advection_discrete} en el dímero.
+\end{enumerate}

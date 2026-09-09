@@ -1,0 +1,18 @@
+% ─── ESTRUCTURA DE LA TESIS Y REPOSITORIO ─────────────────────────────────────
+% Secciones no numeradas, fuera del índice general (sin \addcontentsline).
+% Ambas secciones comparten la misma página, con estilo fancy (numerada).
+
+\section*{Estructura de la tesis}
+\noindent Esta memoria se organiza en siete capítulos. El \textbf{Capítulo~1} introduce la motivación del proyecto y la transición desde la simulación clásica de fluidos hacia un modelo cuántico. El \textbf{Capítulo~2} recoge los objetivos, general y específicos, que guían el trabajo. El \textbf{Capítulo~3} desarrolla el marco teórico y el estado del arte: la comparación entre métodos basados en malla y SPH, la ecuación de advección unidimensional, la formulación SPH y las caminatas cuánticas en tiempo continuo (CTQW). El \textbf{Capítulo~4} presenta la metodología, incluyendo la analogía con CTQW, la construcción del Hamiltoniano y la codificación del estado físico. El \textbf{Capítulo~5} describe el diseño e implementación del circuito cuántico, describiendo la descomposición de emparejamiento, la introducción de sistemas abiertos mediante un qubit ancilla y la compensación del efecto Zeno. El \textbf{Capítulo~6} expone los resultados y su discusión para distintas velocidades de advección. Por último, el \textbf{Capítulo~7} recoge las conclusiones y las líneas de trabajo futuro.
+\bigskip
+
+\section*{Repositorio de código fuente}
+\noindent El código fuente, la memoria en \LaTeX{} y el PDF compilado se encuentran disponibles en un repositorio público de GitHub:
+\begin{center}
+\href{https://github.com/afroomg/TFM_FrancescoOrizzonte}{\url{https://github.com/afroomg/TFM_FrancescoOrizzonte}}
+\end{center}
+
+\noindent El repositorio está estructurado de forma que tanto el código del algoritmo como la memoria pueden reproducirse siguiendo las instrucciones del \texttt{README}. Incluye un entorno de ejecución y un \textit{Makefile} para compilar la documentación y obtener el PDF sin dependencias manuales adicionales.
+
+\medskip\noindent
+Conviene aclarar que en esta memoria \textbf{no se incluyen fragmentos de código} (\textit{snippets}). El foco del trabajo es el análisis del algoritmo ---su formulación, las herramientas matemáticas subyacentes y las ecuaciones primordiales que gobiernan la dinámica--- y no los detalles de su implementación. La explicación se centra por tanto en el comportamiento del algoritmo, en el diseño del circuito cuántico y en la interpretación física de los resultados, mientras que el código, debidamente documentado, queda alojado en el repositorio para su consulta y reproducción.

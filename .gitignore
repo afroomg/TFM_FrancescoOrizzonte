@@ -25,3 +25,29 @@ Thumbs.db
 
 # Logs
 *.log
+
+# LaTeX (TFM_latex) — artefactos de compilación
+*.aux
+*.bbl
+*.blg
+*.toc
+*.lof
+*.lot
+*.idx
+*.ilg
+*.ind
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.nav
+*.snm
+*.vrb
+*.bcf
+*.run.xml
+*.dvi
+*.ps
+.~lock.*
+# PDF compilado: se regenera, no se versiona
+TFM_latex/main.pdf
