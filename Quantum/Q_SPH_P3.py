@@ -6,7 +6,7 @@ from match_decomposition import ctqw_matching_step
 from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, transpile
 from qiskit_aer import AerSimulator
 
-# ── OPCIONES DE SALIDA holi, me vez? ────────────────────────────────────────────────────────
+# ── OPCIONES DE SALIDA ────────────────────────────────────────────────────────
 GUARDAR_CIRCUITO = False   # True → guarda 'Q_SPH_P3_trotter_step.png'
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -14,7 +14,7 @@ GUARDAR_CIRCUITO = False   # True → guarda 'Q_SPH_P3_trotter_step.png'
 # 1. PARÁMETROS FÍSICOS SPH Y PARÁMETROS
 h  = 1.2
 dx = 0.5
-c  = 10**(-1)       # Velocidad fija (~0.3162)
+c  = 10**(-0.2)       # Velocidad fija (~0.3162)
 nu = 1.0 / (h**2)
 J_classical = c * dx * nu   # Tasa clásica de transferencia
 

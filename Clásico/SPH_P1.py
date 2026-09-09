@@ -6,9 +6,9 @@ import matplotlib.pyplot as plt
 
 h = 1.2
 dx = 0.5
-c = 10**(-1)                 # velocidad de advección fija
+c = 10**(-0.2)                 # velocidad de advección fija
 T_final = 30           
-n_points = 3        # detalle fino en la línea
+n_points = 60       # detalle fino en la línea
 
 # Condición inicial: Lína azul paper
 u0_init, u1_init = 1.0, 0.0
