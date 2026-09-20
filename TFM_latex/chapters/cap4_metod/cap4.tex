@@ -24,14 +24,14 @@ Esta ecuación demuestra que es posible alcanzar estados válidos que representa
 donde $V_{jk} = \nabla_j W_{jk}/(vN) + ib_{jk} $ y $v = \max|\nabla_j W_{jk}|$. De esta forma se encapsula la evaluación del kernel de suavizado junto con los términos de normalización imaginarios necesarios para garantizar la unitariedad en el computador cuántico. Para adaptar esta expresión al formalismo de las caminatas cuánticas continuas (CTQW), los autores definen las amplitudes de probabilidad, equivalentes a los coeficientes de evolución temporal. La amplitud de autointeracción para la partícula $j$ se define como:
 
 \begin{equation}
-    \alpha_{jj} = 1 + c N \Delta x \Re(\sum_{k \neq j} V_{jk})
+    \alpha_{jj} = 1 + v c N \Delta x \Re(\sum_{k \neq j} V_{jk})
     \label{eq:auyeung_15}
 \end{equation}
 
 mientras que la amplitud de interacción que gobierna el flujo desde las partículas vecinas $k$ hacia $j$ está dada por:
 
 \begin{equation}
-  \alpha_{jk} = -c N \Delta x \Re(V_{jk})
+  \alpha_{jk} = -c v N \Delta x \Re(V_{jk})
     \label{eq:auyeung_16}
 \end{equation}
 
